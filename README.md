@@ -29,7 +29,7 @@ You have to create an application who manage the trips made by an user.
 	- CRUD for each model
 	- *(Optional)* A route for healthcheck and version of the application
 
-### (Optional) Go further :  
+**(Optional) Go further** :  
 - Spring Actuator  
 - Spring security  
 - Flux & Mono
