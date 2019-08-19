@@ -10,4 +10,6 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/tripmanagerapi
+  profiles:
+    active: prod
 

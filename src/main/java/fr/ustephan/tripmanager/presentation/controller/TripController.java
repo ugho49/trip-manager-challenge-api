@@ -1,6 +1,7 @@
 package fr.ustephan.tripmanager.presentation.controller;
 
 import fr.ustephan.tripmanager.domain.Trip;
+import fr.ustephan.tripmanager.infrastructure.exception.RestResponseException;
 import fr.ustephan.tripmanager.infrastructure.model.TripModel;
 import fr.ustephan.tripmanager.infrastructure.service.TripService;
 import fr.ustephan.tripmanager.presentation.form.TripForm;
@@ -33,24 +34,24 @@ public class TripController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Trip createTrip(@Valid @RequestBody TripForm form, BindingResult result) {
+    public Trip createTrip(@Valid @RequestBody TripForm form, BindingResult result) throws RestResponseException {
 
         if (result.hasErrors()) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Erreur au niveau des champs");
+            throw new RestResponseException(HttpStatus.BAD_REQUEST, "Erreur au niveau des champs");
         }
 
         return tripService.create(form.toModel());
     }
 
     @PutMapping("/{id}")
-    public Trip createTrip(@PathVariable String id, @Valid @RequestBody TripForm form, BindingResult result) {
+    public Trip createTrip(@PathVariable String id, @Valid @RequestBody TripForm form, BindingResult result) throws RestResponseException {
 
         if (!tripService.existsById(id)) {
-            throw new HttpClientErrorException(HttpStatus.NOT_FOUND, "Trip innexistant en base");
+            throw new RestResponseException(HttpStatus.NOT_FOUND, "Trip innexistant en base");
         }
 
         if (result.hasErrors()) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Erreur au niveau des champs");
+            throw new RestResponseException(HttpStatus.BAD_REQUEST, "Erreur au niveau des champs");
         }
 
         final TripModel tripModel = form.toModel();
@@ -60,10 +61,10 @@ public class TripController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity createTrip(@PathVariable String id) {
+    public ResponseEntity createTrip(@PathVariable String id) throws RestResponseException {
 
         if (!tripService.existsById(id)) {
-            throw new HttpClientErrorException(HttpStatus.NOT_FOUND, "Trip innexistant en base");
+            throw new RestResponseException(HttpStatus.NOT_FOUND, "Trip innexistant en base");
         }
 
         tripService.delete(id);
