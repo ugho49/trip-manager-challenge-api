@@ -1,0 +1,13 @@
+server:
+  port: 8080
+  error:
+    include-stacktrace: never
+    include-exception: false
+    whitelabel:
+      enabled: false
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/tripmanagerapi
+
